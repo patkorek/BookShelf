@@ -9,9 +9,10 @@ import java.util.regex.Pattern;
 @Component
 public class BookValidator {
 
-    public void validate(BookDetails book) {
+    public void validateBookDetails(BookDetails book) {
         validateISBN(book.getIsbn());
         validateFields(book);
+
     }
 
     private void validateFields(BookDetails book) {
@@ -26,12 +27,6 @@ public class BookValidator {
         Pattern pattern = Pattern.compile(isbnRegex);
         if(!pattern.matcher(isbn).matches()) {
             throw new ResourceException("ISBN code is incorrect.");
-        }
-    }
-
-    private void validateRating(int rating) {
-        if(rating > 7 || rating < 0) {
-            throw new ResourceException("Rating value is incorrect, value should be between 1 and 6.");
         }
     }
 }

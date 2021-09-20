@@ -32,7 +32,7 @@ public class PostBookDetailsController {
 
     @PostMapping("/book")
     public ResponseEntity<BookDetails> addBook(@RequestBody BookDetails bookDetails) throws ExecutionException, InterruptedException {
-        bookValidator.validate(bookDetails);
+        bookValidator.validateBookDetails(bookDetails);
         if(bookDetailsService.findByAuthorAndTitle(bookDetails.getAuthor(), bookDetails.getTitle()).isPresent()) {
             throw new ResourceException(HttpStatus.BAD_REQUEST, "Book with this author and title already exist.");
         } else {
