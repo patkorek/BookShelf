@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"></head><body id="preview">
-<h1 class="code-line" data-line-start=0 data-line-end=1><a id="BookSchelf_project_0"></a>BookSchelf project</h1>
+<h1 class="code-line" data-line-start=0 data-line-end=1><a id="BookShelf_project_0"></a>BookSchelf project</h1>
 <p class="has-line-data" data-line-start="2" data-line-end="3">This application allows you to store a list of books on a virtual library, stores information about the Author, Title, ISBN code, and number of pages. It is also possible to add comments to individual items.</p>
 <h3 class="code-line" data-line-start=4 data-line-end=5><a id="Tech_4"></a>Tech</h3>
 <p class="has-line-data" data-line-start="5" data-line-end="7">Project based on Spring Boot, Java 8.<br>
