@@ -4,7 +4,7 @@ import com.shelf.books.exception.ResourceException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommentsValidator {
+public class CommentValidator {
 
     public void validateRating(int rating) {
         if(rating > 6 || rating < 1) {

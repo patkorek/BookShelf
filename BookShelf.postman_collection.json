@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6810b9db-eb90-45ac-8252-f214832c46ea",
+		"_postman_id": "8f3fff53-a1bc-4dd4-89a2-3d73909a0b6f",
 		"name": "BookShelf",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "43098599-603a-470e-9726-844933c2f3e7",
 						"exec": [
 							"pm.test(\".POST response is ok and have the expected body\", function () {",
 							"    pm.response.to.be.ok;",
@@ -34,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"author\": \"Andrzej Sapkowski\",\n    \"isbn\": \"ISBN 978-0-596-52068-7\",\n    \"pages\": 432,\n    \"title\": \"Wiedzmin\"\n}"
+					"raw": "{\n    \"author\": \"Andrzej Sapkowski\",\n    \"isbn\": \"ISBN 978-1-596-52068-7\",\n    \"pages\": 432,\n    \"title\": \"Wiedzmin\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/shelf/book",
@@ -71,7 +70,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"comment\": \"estts\",\n    \"bookId\": 1,\n    \"rating\": \"6\"\n}"
+					"raw": "{\n    \"comment\": \"test\",\n    \"bookAuthor\": \"Andrzej Sapkowski\",\n    \"bookTitle\": \"Wiedzmin\",\n    \"rating\": \"6\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/comments",
@@ -100,7 +99,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "93fdb906-7ab9-4638-9ed6-546e3b0842e2",
 						"exec": [
 							"pm.test(\".POST response is ok and have the expected body\", function () {",
 							"    pm.response.to.be.ok;",
@@ -123,7 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"author\": \"Andrzej Sapkowski\",\n    \"isbn\": \"ISBN 978-0-596-52068-7\",\n    \"pages\": 412,\n    \"title\": \"Wiedzmin\"\n}"
+					"raw": "{\n    \"author\": \"Andrzej Sapkowskii\",\n    \"isbn\": \"ISBN 978-0-596-52068-7\",\n    \"pages\": 412,\n    \"title\": \"Wiedzmin\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/shelf/book",
@@ -153,7 +151,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "82461c31-ea1d-4e8f-8e19-5d9674425730",
 						"exec": [
 							"pm.test(\".GET response is ok and have the expected body\", function () {",
 							"    pm.response.to.be.ok;",
@@ -190,7 +187,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "959a42ab-2732-43ed-aabe-4bb2ffc63dcf",
 						"exec": [
 							"pm.test(\".GET response is ok and have the expected body\", function () {",
 							"    pm.response.to.be.ok;",
@@ -206,7 +202,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/comments/0/2",
+					"raw": "http://localhost:8080/comments/0/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -215,7 +211,45 @@
 					"path": [
 						"comments",
 						"0",
-						"2"
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Book Comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\".GET response is ok and have the expected body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/comments/0/0/Andrzej Sapkowski/Wiedzmin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments",
+						"0",
+						"0",
+						"Andrzej Sapkowski",
+						"Wiedzmin"
 					]
 				}
 			},
@@ -227,7 +261,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8ee601b3-3e50-4e3f-8588-47f9c7630631",
 						"exec": [
 							"pm.test(\".DELETE response is ok and have the expected body\", function () {",
 							"    pm.response.to.be.ok;",
@@ -257,7 +290,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Remove book comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\".DELETE response is ok and have the expected body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/comments/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments",
+						"2"
+					]
+				}
+			},
+			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

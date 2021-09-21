@@ -2,7 +2,6 @@ package com.shelf.books.controller;
 
 import com.shelf.books.exception.ResourceException;
 import com.shelf.books.model.BookDetails;
-import com.shelf.books.service.BookCommentsService;
 import com.shelf.books.service.BookDetailsService;
 import com.shelf.books.validator.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +20,15 @@ public class PostBookDetailsController {
 
     private final BookDetailsService bookDetailsService;
     private final BookValidator bookValidator;
-    private final BookCommentsService bookCommentsService;
 
     @Autowired
-    public PostBookDetailsController(BookDetailsService bookDetailsService, BookValidator bookValidator, BookCommentsService bookCommentsService) {
+    public PostBookDetailsController(BookDetailsService bookDetailsService, BookValidator bookValidator) {
         this.bookDetailsService = bookDetailsService;
         this.bookValidator = bookValidator;
-        this.bookCommentsService = bookCommentsService;
     }
 
     @PostMapping("/book")
-    public ResponseEntity<BookDetails> addBook(@RequestBody BookDetails bookDetails) throws ExecutionException, InterruptedException {
+    public ResponseEntity<BookDetails> addBook(@RequestBody BookDetails bookDetails) {
         bookValidator.validateBookDetails(bookDetails);
         if(bookDetailsService.findByAuthorAndTitle(bookDetails.getAuthor(), bookDetails.getTitle()).isPresent()) {
             throw new ResourceException(HttpStatus.BAD_REQUEST, "Book with this author and title already exist.");

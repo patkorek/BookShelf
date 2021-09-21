@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookComments {
+public class BookComment {
 
     @Id
     @GeneratedValue
@@ -22,7 +22,9 @@ public class BookComments {
 
     private String comment;
 
-    private Long bookId;
+    private String bookAuthor;
+
+    private String bookTitle;
 
     private int rating;
 

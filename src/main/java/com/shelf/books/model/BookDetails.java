@@ -1,5 +1,6 @@
 package com.shelf.books.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +16,7 @@ public class BookDetails {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
 
     @NotBlank(message = "Title is mandatory")

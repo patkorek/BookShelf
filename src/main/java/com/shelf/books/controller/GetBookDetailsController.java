@@ -1,9 +1,8 @@
 package com.shelf.books.controller;
 
 import com.shelf.books.dto.BookShelf;
-import com.shelf.books.service.BookCommentsService;
+import com.shelf.books.service.BookCommentService;
 import com.shelf.books.service.BookDetailsService;
-import com.shelf.books.validator.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -21,14 +20,12 @@ import java.util.stream.Collectors;
 public class GetBookDetailsController {
 
     private final BookDetailsService bookDetailsService;
-    private final BookValidator bookValidator;
-    private final BookCommentsService bookCommentsService;
+    private final BookCommentService bookCommentService;
 
     @Autowired
-    public GetBookDetailsController(BookDetailsService bookDetailsService, BookValidator bookValidator, BookCommentsService bookCommentsService) {
+    public GetBookDetailsController(BookDetailsService bookDetailsService, BookCommentService bookCommentService) {
         this.bookDetailsService = bookDetailsService;
-        this.bookValidator = bookValidator;
-        this.bookCommentsService = bookCommentsService;
+        this.bookCommentService = bookCommentService;
     }
 
     @GetMapping("/{page}/{size}")
@@ -36,7 +33,7 @@ public class GetBookDetailsController {
         return new ResponseEntity<>(
                 bookDetailsService.findAllBooks(PageRequest.of(page, size)).stream()
                         .map(bookDetails -> new BookShelf(bookDetails,
-                                bookCommentsService.getBookComments(bookDetails.getId())
+                                bookCommentService.getTop5BookComments(bookDetails.getAuthor(), bookDetails.getTitle())
                         )).collect(Collectors.toList()), HttpStatus.OK
         );
     }

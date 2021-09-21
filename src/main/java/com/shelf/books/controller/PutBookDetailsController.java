@@ -1,7 +1,6 @@
 package com.shelf.books.controller;
 
 import com.shelf.books.model.BookDetails;
-import com.shelf.books.service.BookCommentsService;
 import com.shelf.books.service.BookDetailsService;
 import com.shelf.books.validator.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +19,20 @@ public class PutBookDetailsController {
 
     private final BookDetailsService bookDetailsService;
     private final BookValidator bookValidator;
-    private final BookCommentsService bookCommentsService;
 
     @Autowired
-    public PutBookDetailsController(BookDetailsService bookDetailsService, BookValidator bookValidator, BookCommentsService bookCommentsService) {
+    public PutBookDetailsController(BookDetailsService bookDetailsService, BookValidator bookValidator) {
         this.bookDetailsService = bookDetailsService;
         this.bookValidator = bookValidator;
-        this.bookCommentsService = bookCommentsService;
     }
 
     @PutMapping("/book")
-    public ResponseEntity<BookDetails> updateBook(@RequestBody BookDetails bookDetails) throws ExecutionException, InterruptedException {
+    public ResponseEntity<BookDetails> updateBook(@RequestBody BookDetails bookDetails) {
         Optional<BookDetails> optionalBook = bookDetailsService.findByAuthorAndTitle(bookDetails.getAuthor(), bookDetails.getTitle());
         if(optionalBook.isPresent()) {
             bookDetails.setId(optionalBook.get().getId());
         }
-        bookValidator.validate(bookDetails);
+        bookValidator.validateBookDetails(bookDetails);
         bookDetailsService.addBook(bookDetails);
         return ResponseEntity.ok(bookDetails);
     }
